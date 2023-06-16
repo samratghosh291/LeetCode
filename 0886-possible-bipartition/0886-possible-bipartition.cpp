@@ -1,39 +1,39 @@
 class Solution {
 public:
-    bool possibleBipartition(int N, vector<vector<int>> &edges) 
-{
-    vector<vector<int>> adj(N + 1); // adjacency matrix
-    vector<int> color(N + 1, 0); 
-    vector<bool> explored(N + 1, false); 
-
-    for (auto &edge: edges) {
-        adj[edge[0]].push_back(edge[1]);
-        adj[edge[1]].push_back(edge[0]);
-    }
- 
-    queue<int> q;        
-    for (int i = 1; i <= N; ++i) {
-        if (!explored[i]) {
-            color[i] = 1;
-            q.push(i);
-            
-            while (!q.empty()) {
-                int u = q.front();
-                q.pop();
-                if (explored[u]) continue;
+    bool possibleBipartition(int n, vector<vector<int>>& dislikes) {
+        
+        vector<int> color(n+1,-1);
+        vector<int> adj[n+1];
+        for(auto p:dislikes){
+            adj[p[0]].push_back(p[1]);
+            adj[p[1]].push_back(p[0]);
+        }
+        for(int node=1;node<=n;node++){
+            if(color[node]==-1){
                 
-                explored[u] = true;
-                for (auto v: adj[u]) {
-                    if (color[v] == color[u])
-                        return false;
-
-                    color[v] = -color[u];                        
-                    q.push(v);
+                if(cycle(node,adj,color)){
+                    return false; // if adjacent node become same color as 
+                                  // current node, no bipartition possible
                 }
             }
         }
+        return true;
     }
-    
-    return true;
-}
+    bool cycle(int node,vector<int> adj[], vector<int> &color){
+        if(color[node]==-1){
+            color[node]=1;
+        }
+        for(int child:adj[node]){
+            if(color[child]==-1){
+                color[child]=1-color[node];
+                if(cycle(child,adj,color)){
+                    return true; // finding adjacent node having same color
+                }
+            }
+            else if(color[child]==color[node]){
+                return true;// finding adjacent node having same color
+            }
+        }
+        return false;
+    }
 };

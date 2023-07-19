@@ -1,33 +1,41 @@
+// ALGORITHM:
+// 1. delclear a map to store the <arr[i] ,i> in <key,val>
+// 2. for(i=0 to i=(n-1))
+//     2.1. req=target-arr[i];
+//     2.2. if(req finds in map)
+//             return(map->val,i)
+//         else{
+//             insert(arr[i],i) in map;
+//         }
+
+// TC=O(nlogn)
+// SC=O(n)
+
+
 class Solution {
 public:
-    vector<int> twoSum(vector<int>& nums, int target) {
+    vector<int> twoSum(vector<int>& arr, int target) {
+        map<int,int>mp;
+        vector<int>v;
         
-        vector<pair<int,int>> v;
-        for(int i=0;i<nums.size();i++)
-            v.push_back({nums[i],i});
-        sort(v.begin(),v.end());
-        int i=0;
-        int j=v.size()-1;
-        int idx1=0;
-        int idx2=0;
-        while(i<j)
-        {
-            if(v[i].first+v[j].first==target)
-            {
-                idx1=v[i].second;
-                idx2=v[j].second;
-                break;
-                
+        for(int i=0;i<arr.size();i++){
+            
+            int req=target-arr[i];
+            
+            auto it=mp.find(req); //get the iterator if find the req element in map
+            
+            if(it!=mp.end()){
+                v.push_back(it->second); //insert the lower indices into vector
+                v.push_back(i);          // insert the higher indices into vector
+                break; //stop searching after getting the indices that satisfy the target sum
             }
-            if(v[i].first+v[j].first<target)
-                i++;
-            if(v[i].first+v[j].first>target)
-                j--;
-    }
-        return {idx1,idx2};    
+            else{
+                //if arr[i] not find in map then insert it into the map
+                mp.insert(make_pair(arr[i],i)); 
+            }
+        }
+        
+        return v; //return the vector
         
     }
 };
-
-//TC:o(nlogn)
-//TC:o(logn)

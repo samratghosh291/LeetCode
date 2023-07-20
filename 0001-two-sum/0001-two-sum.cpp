@@ -1,41 +1,48 @@
-// ALGORITHM:
-// 1. delclear a map to store the <arr[i] ,i> in <key,val>
-// 2. for(i=0 to i=(n-1))
-//     2.1. req=target-arr[i];
-//     2.2. if(req finds in map)
-//             return(map->val,i)
-//         else{
-//             insert(arr[i],i) in map;
-//         }
+// ALGORITHM
+// Greedy Approach
+// 1.insert the (element,index) in vector<pair<int,int>>v 
+// 2. sort the vector
+// 3.int left =0;, right=v.size()-1;
+// 4. while(i<j){
+//     if(v[left].first+v[right].first==target){
+//         return{v[left].second,v[right].second};
+//     }
+//     else if(v[left].first+v[right].first<target){
+//         left++;
+//     }
+//     else{
+//         right--;
+//     }
+// }
+// return {};
 
-// TC=O(nlogn)
-// SC=O(n)
+// TC==>O(nlogn)(for sorting)+O(n)(for traversing)
+//SC===>O(n) for xtra vector v
 
 
 class Solution {
 public:
-    vector<int> twoSum(vector<int>& arr, int target) {
-        map<int,int>mp;
-        vector<int>v;
-        
-        for(int i=0;i<arr.size();i++){
-            
-            int req=target-arr[i];
-            
-            auto it=mp.find(req); //get the iterator if find the req element in map
-            
-            if(it!=mp.end()){
-                v.push_back(it->second); //insert the lower indices into vector
-                v.push_back(i);          // insert the higher indices into vector
-                break; //stop searching after getting the indices that satisfy the target sum
-            }
-            else{
-                //if arr[i] not find in map then insert it into the map
-                mp.insert(make_pair(arr[i],i)); 
-            }
+    vector<int> twoSum(vector<int>& nums, int target) {
+        vector<pair<int,int>>v;
+        for(int i=0;i<nums.size();i++){
+            v.push_back({nums[i],i});
         }
         
-        return v; //return the vector
+        sort(v.begin(),v.end());
+        int left=0;
+        int right=v.size()-1;
+         while(left<right){
+    if(v[left].first+v[right].first==target){
+        return{v[left].second,v[right].second};
+    }
+    else if(v[left].first+v[right].first<target){
+        left++;
+    }
+    else{
+        right--;
+    }
+}
+        return {};
         
     }
 };

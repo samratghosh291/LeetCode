@@ -18,19 +18,28 @@ public:
         
         ListNode* odd=head;
         ListNode* even=head->next;
+        
+        //maintain the even head
         ListNode* evenH=even;
         
         while(even!=nullptr and even->next!=nullptr){
             
+            
+            //change pointer for odd list
             odd->next=odd->next->next;
             odd=odd->next;
             
+            
+            //change pointer for even list
             even->next=even->next->next;
             even=even->next;
             
             
         }
+        
+        //assign even list at the end of the odd list
         odd->next=evenH;
+        
         return head;
     }
 };

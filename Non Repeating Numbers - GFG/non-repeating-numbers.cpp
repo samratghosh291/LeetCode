@@ -10,15 +10,24 @@ public:
     {
         // Code here.
         
-     sort(v.begin(),v.end());   
-    unordered_map<int, int> freqMap;
-    for (int num : v) {
-        freqMap[num]++;
-    }
-
-    v.erase(remove_if(v.begin(), v.end(),
-        [&freqMap](int num) { return freqMap[num] > 1; }),
-        v.end());
+    //  sort(v.begin(),v.end());   
+     
+     map<int,int>mp;
+    
+     for(const auto &it:v){
+        
+        mp[it]++;
+     }
+     
+     //clear the vector
+     v.clear();
+     
+     for(const auto &it: mp){
+          
+          if(it.second==1){
+              v.push_back(it.first);
+          }
+     }
         
         return v;
     }

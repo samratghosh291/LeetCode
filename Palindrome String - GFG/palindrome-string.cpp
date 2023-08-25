@@ -13,25 +13,23 @@ public:
 	int isPalindrome(string s)
 	{
 	    // Your code goes here
-	     
-        int st=0;
-        int end=s.length()-1;
-        int flag=0;
-        
-        while(st<end){
-            
-            if(s[st]==s[end]){
-                flag=1;
-            }
-            else{
-                return 0;
-            }
-            
-            st++;
-            end--;
-        }
-        
-        return flag;
+	    int flag=0;
+	    
+	    int left=0;
+	    int right=s.length()-1;
+	    while(left<right){
+	        
+	        if(s[left]!=s[right]){
+	            return 0;
+	        }
+	        
+	        flag=1;
+	        left++;
+	        right--;
+	        
+	    }
+	    
+	    return flag;
 	}
 
 };

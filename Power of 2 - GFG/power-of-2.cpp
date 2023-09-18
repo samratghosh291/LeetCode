@@ -15,7 +15,7 @@ class Solution{
         
         // Your code here    
         
-        if(n==0){
+        if(n<=0){
             return false;
         }
         

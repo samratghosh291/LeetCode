@@ -29,39 +29,55 @@ int main() {
 // } Driver Code Ends
 
 
-vector<long long> printFirstNegativeInteger(long long int arr[], long long int n, long long int k) {
-    vector<long long> ans;
-    queue<long long> q;
-    
-    long long int left = 0, right = 0;
-    
-    while (right < n) {
-        // If the current element is negative, add it to the queue
-        if (arr[right] < 0) {
-            q.push(arr[right]);
-        }
-        
-        // When the window size reaches k
-        if (right - left + 1 == k) {
-            // If the queue is not empty, the front element is the answer
-            if (!q.empty()) {
-                ans.push_back(q.front());
-                // If the left element is the same as the front of the queue, remove it
-                if (arr[left] == q.front()) {
-                    q.pop();
-                }
-            } else {
-                // If the queue is empty, there are no negative integers in the window
-                ans.push_back(0);
-            }
-            
-            // Move the window by incrementing left
-            left++;
-        }
-        
-        // Move the right pointer to the next position
-        right++;
-    }
-    
-    return ans;
-}
+vector<long long> printFirstNegativeInteger(long long int arr[],
+                                             long long int n, long long int k) {
+                                                 
+                                                 
+                                                 
+                                                vector<long long> ans;
+                                                queue<long long>q;
+                                                
+                                                long long int left=0,right=0;
+                                                
+                                                
+                                                while(right<n){
+                                                    
+                                                    //when window size does not reach 
+                                                     if (arr[right] < 0) {
+                                                        q.push(arr[right]);
+                                                     }
+                                                     
+                                                    
+                                                    //when window size hits
+                                                    if((right-left+1)==k){
+                                                        
+                                                        //calculation for answer
+                                                        
+                                                        if(!q.empty()){
+                                                            ans.push_back(q.front());
+                                                        }
+                                                        else{
+                                                            ans.push_back(0);
+                                                        }
+                                                        
+                                                        //calculation for previos elements
+                                                        
+                                                        if(q.front()==arr[left]){
+                                                            
+                                                            q.pop();
+                                                        }
+                                                        //maintain the window size
+                                                        
+                                                        left++;
+                                                        
+                                                    }
+                                                    
+                                                    right++;
+                                                    
+                                                }
+                                                
+                                                return ans;
+                                                 
+                                                 
+                                                 
+ }

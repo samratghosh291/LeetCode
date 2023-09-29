@@ -29,58 +29,39 @@ int main() {
 // } Driver Code Ends
 
 
-vector<long long> printFirstNegativeInteger(long long int a[],
-                                             long long int N, long long int K) {
-                                                 
-                                            vector<long long> v;
-                                            queue<long long >q;
-                                        long long i=0,j=0;
-                                        while(j<N){
-                                            
-                                          if(j-i+1<K)  {
-                                              
-                                            if(a[j]<0) q.push(a[j]);  
-                                              
-                                              j++;
-                                          }
-                                            
-                                         if(j-i+1==K){
-                                             
-                                            if(a[j]<0) q.push(a[j]); 
-                                            
-                                            if(q.empty()) v.push_back(0);
-                                         
-                                            if(!q.empty())  v.push_back(q.front());
-                                        
-                                            if(a[i]==q.front()) q.pop();  
-                                        
-                                             i++;
-                                             j++;
-                                             
-                                             
-                                         }   
-                                            
-                                            
-                                        }
-                                             
-                                         return v;    
-                                             
-                                             
-                                             
-                                             
-                                             
-                                             
-                                             
-                                             
-                                             
-                                             
-                                             
-                                             
-                                             
-                                             
-                                             
-                                             
-                                             
-                                             
-                                                 
- }
+vector<long long> printFirstNegativeInteger(long long int arr[], long long int n, long long int k) {
+    vector<long long> ans;
+    queue<long long> q;
+    
+    long long int left = 0, right = 0;
+    
+    while (right < n) {
+        // If the current element is negative, add it to the queue
+        if (arr[right] < 0) {
+            q.push(arr[right]);
+        }
+        
+        // When the window size reaches k
+        if (right - left + 1 == k) {
+            // If the queue is not empty, the front element is the answer
+            if (!q.empty()) {
+                ans.push_back(q.front());
+                // If the left element is the same as the front of the queue, remove it
+                if (arr[left] == q.front()) {
+                    q.pop();
+                }
+            } else {
+                // If the queue is empty, there are no negative integers in the window
+                ans.push_back(0);
+            }
+            
+            // Move the window by incrementing left
+            left++;
+        }
+        
+        // Move the right pointer to the next position
+        right++;
+    }
+    
+    return ans;
+}

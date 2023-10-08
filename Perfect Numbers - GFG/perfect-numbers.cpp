@@ -14,16 +14,11 @@ class Solution {
             
             if(n%i==0){
                 ans+=i;
-                if(i!=1){
-                    
-                  ans+=(n/i);  
-                    
-                }
-                
+                ans+=(n/i);  
             }
         }
         
-        if(ans==n and n!=1){
+        if((ans-n)==n and n!=1){
             return 1;
         }
         else{
